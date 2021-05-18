@@ -1,12 +1,12 @@
-FROM runatlantis/atlantis:v0.16.0
+FROM runatlantis/atlantis:v0.17.0
 
 ENV LOCAL_BIN=/usr/local/bin
 
-ARG TERRAGRUNT_VERSION="v0.27.0"
+ARG TERRAGRUNT_VERSION="v0.29.3"
 ADD https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 $LOCAL_BIN/terragrunt
 RUN chmod +x $LOCAL_BIN/terragrunt
 
-ENV DEFAULT_TERRAFORM_VERSION=0.14.4
+ENV DEFAULT_TERRAFORM_VERSION=0.15.3
 
 RUN AVAILABLE_TERRAFORM_VERSIONS="${DEFAULT_TERRAFORM_VERSION}" && \
     for VERSION in ${AVAILABLE_TERRAFORM_VERSIONS}; do \
