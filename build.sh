@@ -1,12 +1,15 @@
 #!/bin/bash
-source ./variables.sh
 
-tag=${CONTAINER}/${BUILD_NAME}:${BUILD_VERSION}
+echo "Please deploy updates through the atlantis-base codebuild project in the wink-tools aws account."
 
-docker build \
-  --build-arg GITHUB_DEPLOY_KEY="$GITHUB_DEPLOY_KEY" \
-  -t ${tag} \
-  .
+# source ./variables.sh
 
-echo "setting ${tag} to latest"
-docker tag ${tag} ${CONTAINER}/${BUILD_NAME}:latest
+# tag=${CONTAINER}/${BUILD_NAME}:${BUILD_VERSION}
+
+# docker build \
+#   --build-arg GITHUB_DEPLOY_KEY="$GITHUB_DEPLOY_KEY" \
+#   -t ${tag} \
+#   .
+
+# echo "setting ${tag} to latest"
+# docker tag ${tag} ${CONTAINER}/${BUILD_NAME}:latest
