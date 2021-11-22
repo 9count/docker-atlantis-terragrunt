@@ -21,4 +21,4 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image with tags $ENVIRONMENT $BUILD_TAG $COMMIT_HASH
       - docker push --all-tags $REPOSITORY_URI
-      - aws ecs update-service --cluster "${CLUSTER_NAME}" --service "${ECR_NAME}-${ENVIRONMENT}-web" --force-new-deployment --region "${AWS_DEFAULT_REGION}" > /dev/null
+      - aws ecs update-service --cluster "${CLUSTER_NAME}" --service "atlantis" --force-new-deployment --region "${AWS_DEFAULT_REGION}" > /dev/null
