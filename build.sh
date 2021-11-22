@@ -1,4 +1,5 @@
 #!/bin/bash
+
 source ./variables.sh
 
 tag=${CONTAINER}/${BUILD_NAME}:${BUILD_VERSION}

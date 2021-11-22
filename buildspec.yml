@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - docker login -u AWS -p $(aws ecr get-login-password --region ${AWS_DEFAULT_REGION}) 761987809044.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=761987809044.dkr.ecr.us-east-1.amazonaws.com/${ECR_NAME}
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION)
+      - BUILD_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build --build-arg GITHUB_DEPLOY_KEY="$GITHUB_DEPLOY_KEY" -f Dockerfile -t $REPOSITORY_URI:$BUILD_TAG .
+      - docker tag $REPOSITORY_URI:$BUILD_TAG $REPOSITORY_URI:$COMMIT_HASH
+      - docker tag $REPOSITORY_URI:$BUILD_TAG $REPOSITORY_URI:$ENVIRONMENT
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image with tags $ENVIRONMENT $BUILD_TAG $COMMIT_HASH
+      - docker push --all-tags $REPOSITORY_URI
+      - aws ecs update-service --cluster "${CLUSTER_NAME}" --service "atlantis" --force-new-deployment --region "${AWS_DEFAULT_REGION}" > /dev/null
