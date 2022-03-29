@@ -1,4 +1,4 @@
-FROM runatlantis/atlantis:v0.19.2
+FROM ghcr.io/runatlantis/atlantis:v0.19.2
 
 ENV LOCAL_BIN=/usr/local/bin
 
