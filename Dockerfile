@@ -1,8 +1,8 @@
-FROM ghcr.io/runatlantis/atlantis:v0.19.2
+FROM ghcr.io/runatlantis/atlantis:v0.19.4
 
 ENV LOCAL_BIN=/usr/local/bin
 
-ARG TERRAGRUNT_VERSION="v0.36.6"
+ARG TERRAGRUNT_VERSION="v0.37.2"
 ADD https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 $LOCAL_BIN/terragrunt
 RUN chmod +x $LOCAL_BIN/terragrunt
 
